@@ -310,7 +310,7 @@ static PyObject *xxh3_64_digest(PyObject *self, PyObject *args, PyObject *kwargs
     retbuf = PyString_AS_STRING(retval);
 #endif
 
-    ull2bytes(intdigest, retbuf);
+    XXH64_canonicalFromHash((XXH64_canonical_t *)retbuf, intdigest);
 
     return retval;
 }
@@ -373,7 +373,7 @@ static PyObject *xxh3_64_hexdigest(PyObject *self, PyObject *args, PyObject *kwa
         return NULL;
     }
 
-    ull2bytes(intdigest, digest);
+    XXH64_canonicalFromHash((XXH64_canonical_t *)digest, intdigest);
 
     for (i = j = 0; i < XXH64_DIGESTSIZE; i++) {
         unsigned char c;
@@ -423,8 +423,7 @@ static PyObject *xxh3_128_digest(PyObject *self, PyObject *args, PyObject *kwarg
     retbuf = PyString_AS_STRING(retval);
 #endif
 
-    ull2bytes(intdigest.high64, retbuf);
-    ull2bytes(intdigest.low64, retbuf + XXH64_DIGESTSIZE);
+    XXH128_canonicalFromHash((XXH128_canonical_t *)retbuf, intdigest);
 
     return retval;
 }
@@ -499,8 +498,7 @@ static PyObject *xxh3_128_hexdigest(PyObject *self, PyObject *args, PyObject *kw
         return NULL;
     }
 
-    ull2bytes(intdigest.high64, digest);
-    ull2bytes(intdigest.low64, digest + (XXH128_DIGESTSIZE/2));
+    XXH128_canonicalFromHash((XXH128_canonical_t *)digest, intdigest);
 
     for (i = j = 0; i < XXH128_DIGESTSIZE; i++) {
         unsigned char c;
