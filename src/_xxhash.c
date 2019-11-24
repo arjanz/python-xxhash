@@ -1241,13 +1241,13 @@ typedef struct {
 
 static PyTypeObject PYXXH3_64Type;
 
-static void PYXXH3_64_dealloc(PYXXH64Object *self)
+static void PYXXH3_64_dealloc(PYXXH3_64Object *self)
 {
     XXH3_freeState(self->xxhash_state);
     PyObject_Del(self);
 }
 
-static void PYXXH3_64_do_update(PYXXH64Object *self, Py_buffer *buf)
+static void PYXXH3_64_do_update(PYXXH3_64Object *self, Py_buffer *buf)
 {
     if (buf->len >= GIL_MINSIZE) {
         Py_BEGIN_ALLOW_THREADS
@@ -1321,7 +1321,7 @@ PyDoc_STRVAR(
     "far. This is a 8-byte string which may contain non-ASCII characters,\n"
     "including null bytes.");
 
-static PyObject *PYXXH3_64_digest(PYXXH64Object *self)
+static PyObject *PYXXH3_64_digest(PYXXH3_64Object *self)
 {
     PyObject *retval;
     char *retbuf;
@@ -1428,7 +1428,7 @@ PyDoc_STRVAR(
 
 static PyObject *PYXXH3_64_copy(PYXXH3_64Object *self)
 {
-    PYXXH64Object *p;
+    PYXXH3_64Object *p;
 
     if ((p = PyObject_New(PYXXH3_64Object, &PYXXH3_64Type)) == NULL) {
         return NULL;
@@ -1597,13 +1597,13 @@ typedef struct {
 
 static PyTypeObject PYXXH3_128Type;
 
-static void PYXXH3_128_dealloc(PYXXH64Object *self)
+static void PYXXH3_128_dealloc(PYXXH3_128Object *self)
 {
     XXH3_freeState(self->xxhash_state);
     PyObject_Del(self);
 }
 
-static void PYXXH3_128_do_update(PYXXH64Object *self, Py_buffer *buf)
+static void PYXXH3_128_do_update(PYXXH3_128Object *self, Py_buffer *buf)
 {
     if (buf->len >= GIL_MINSIZE) {
         Py_BEGIN_ALLOW_THREADS
@@ -1677,7 +1677,7 @@ PyDoc_STRVAR(
     "far. This is a 8-byte string which may contain non-ASCII characters,\n"
     "including null bytes.");
 
-static PyObject *PYXXH3_128_digest(PYXXH64Object *self)
+static PyObject *PYXXH3_128_digest(PYXXH3_128Object *self)
 {
     PyObject *retval;
     char *retbuf;
@@ -1795,7 +1795,7 @@ PyDoc_STRVAR(
 
 static PyObject *PYXXH3_128_copy(PYXXH3_128Object *self)
 {
-    PYXXH64Object *p;
+    PYXXH3_128Object *p;
 
     if ((p = PyObject_New(PYXXH3_128Object, &PYXXH3_128Type)) == NULL) {
         return NULL;
@@ -1895,7 +1895,7 @@ static PyGetSetDef PYXXH3_128_getseters[] = {
 
 PyDoc_STRVAR(
     PYXXH3_128Type_doc,
-    "An xxh3_128 represents the object used to calculate the XXH3_64 hash of a\n"
+    "An xxh3_128 represents the object used to calculate the XXH3_128 hash of a\n"
     "string of information.\n"
     "\n"
     "Methods:\n"
