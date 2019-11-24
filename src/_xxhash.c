@@ -1247,9 +1247,9 @@ static PyMethodDef methods[] = {
     {"xxh3_64_digest",     (PyCFunction)xxh3_64_digest,     METH_VARARGS | METH_KEYWORDS, "xxh3_64_digest"},
     {"xxh3_64_intdigest",  (PyCFunction)xxh3_64_intdigest,  METH_VARARGS | METH_KEYWORDS, "xxh3_64_intdigest"},
     {"xxh3_64_hexdigest",  (PyCFunction)xxh3_64_hexdigest,  METH_VARARGS | METH_KEYWORDS, "xxh3_64_hexdigest"},
-    {"xxh3_128_digest",    (PyCFunction)xxh3_128_digest,    METH_VARARGS | METH_KEYWORDS, "xxh3_64_digest"},
-    {"xxh3_128_intdigest", (PyCFunction)xxh3_128_intdigest, METH_VARARGS | METH_KEYWORDS, "xxh3_64_intdigest"},
-    {"xxh3_128_hexdigest", (PyCFunction)xxh3_128_hexdigest, METH_VARARGS | METH_KEYWORDS, "xxh3_64_hexdigest"},
+    {"xxh3_128_digest",    (PyCFunction)xxh3_128_digest,    METH_VARARGS | METH_KEYWORDS, "xxh3_128_digest"},
+    {"xxh3_128_intdigest", (PyCFunction)xxh3_128_intdigest, METH_VARARGS | METH_KEYWORDS, "xxh3_128_intdigest"},
+    {"xxh3_128_hexdigest", (PyCFunction)xxh3_128_hexdigest, METH_VARARGS | METH_KEYWORDS, "xxh3_128_hexdigest"},
     {NULL, NULL, 0, NULL}
 };
 
