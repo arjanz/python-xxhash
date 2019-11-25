@@ -44,12 +44,8 @@ class TestXXH(unittest.TestCase):
     def test_xxh3_128_reset(self):
         x = xxhash.xxh3_128()
         h = x.intdigest()
-
-        for i in range(10, 50):
-            x.update(os.urandom(i))
-
+        x.update(os.urandom(10))
         x.reset()
-
         self.assertEqual(h, x.intdigest())
 
     def test_xxh3_128_copy(self):
