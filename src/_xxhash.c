@@ -496,7 +496,6 @@ static PyObject *xxh3_128_hexdigest(PyObject *self, PyObject *args, PyObject *kw
 #endif
 
     if (!retval) {
-        puts("!retval");
         return NULL;
     }
 
@@ -507,7 +506,6 @@ static PyObject *xxh3_128_hexdigest(PyObject *self, PyObject *args, PyObject *kw
 #endif
 
     if (!retbuf) {
-        puts("!retbuf");
         Py_DECREF(retval);
         return NULL;
     }
