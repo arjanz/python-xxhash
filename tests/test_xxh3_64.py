@@ -1,4 +1,6 @@
+from __future__ import print_function
 import os
+import sys
 import unittest
 import random
 import xxhash
@@ -43,11 +45,14 @@ class TestXXH(unittest.TestCase):
 
     def test_xxh3_64_reset(self):
         x = xxhash.xxh3_64()
+        print("x h", file=sys.stderr)
         h = x.intdigest()
 
-        for i in range(10, 50):
+        for i in range(10, 1000):
+            print(i, file=sys.stderr)
             x.update(os.urandom(i))
 
+        print('reset', file=sys.stderr)
         x.reset()
 
         self.assertEqual(h, x.intdigest())

@@ -118,8 +118,8 @@ class TestXXH(unittest.TestCase):
             self.assertEqual(h, x.intdigest())
 
             for i in range(random.randint(100, 200)):
-                x.update(os.urandom(i))
-                x.reset()
+                x.update(os.urandom(100))
+            x.reset()
 
             self.assertEqual(h, x.intdigest())
 
