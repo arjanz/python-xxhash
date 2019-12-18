@@ -45,14 +45,60 @@ class TestXXH(unittest.TestCase):
 
     def test_xxh3_64_reset(self):
         x = xxhash.xxh3_64()
-        print("x h", file=sys.stderr)
         h = x.intdigest()
 
-        for i in range(10, 1000):
-            print(i, file=sys.stderr)
-            x.update(os.urandom(i))
+        x.update('x' * 10240)
+        x.reset()
 
-        print('reset', file=sys.stderr)
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_64_seed_reset(self):
+        seed = random.randint(0, 2**64-1)
+        x = xxhash.xxh3_64(seed=seed)
+        h = x.intdigest()
+        x.update('x' * 10240)
+        x.reset()
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_64_reset_more(self):
+        x = xxhash.xxh3_64()
+        h = x.intdigest()
+
+        for i in range(random.randint(100, 200)):
+            x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(i))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(100))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_64_seed_reset_more(self):
+        seed = random.randint(0, 2**64-1)
+        x = xxhash.xxh3_64(seed=seed)
+        h = x.intdigest()
+
+        for i in range(random.randint(100, 200)):
+            x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(i))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(100))
         x.reset()
 
         self.assertEqual(h, x.intdigest())

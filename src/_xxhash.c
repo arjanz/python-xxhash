@@ -1654,7 +1654,7 @@ static int PYXXH3_128_init(PYXXH3_128Object *self, PyObject *args, PyObject *kwa
     }
 
     self->seed = seed;
-    XXH3_128bits_reset_withSeed(self->xxhash_state, seed);
+    XXH3_128bits_reset_withSeed(self->xxhash_state, (XXH64_hash_t)seed);
 
     if (buf.buf) {
         PYXXH3_128_do_update(self, &buf);
@@ -1834,7 +1834,7 @@ PyDoc_STRVAR(
 
 static PyObject *PYXXH3_128_reset(PYXXH3_128Object *self)
 {
-    XXH3_128bits_reset_withSeed(self->xxhash_state, self->seed);
+    XXH3_128bits_reset_withSeed(self->xxhash_state, (XXH64_hash_t)self->seed);
     Py_RETURN_NONE;
 }
 

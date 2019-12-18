@@ -44,8 +44,55 @@ class TestXXH(unittest.TestCase):
     def test_xxh3_128_reset(self):
         x = xxhash.xxh3_128()
         h = x.intdigest()
-        x.update(os.urandom(10))
+        x.update('x' * 10240)
         x.reset()
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_128_seed_reset(self):
+        seed = random.randint(0, 2**64-1)
+        x = xxhash.xxh3_128(seed=seed)
+        h = x.intdigest()
+        x.update('x' * 10240)
+        x.reset()
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_128_reset_more(self):
+        x = xxhash.xxh3_128()
+        h = x.intdigest()
+
+        for i in range(random.randint(100, 200)):
+            x.reset()
+
+        for i in range(10, 1000):
+            x.update(os.urandom(i))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(100))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+    def test_xxh3_128_seed_reset_more(self):
+        seed = random.randint(0, 2**64-1)
+        x = xxhash.xxh3_128(seed=seed)
+        h = x.intdigest()
+
+        for i in range(random.randint(100, 200)):
+            x.reset()
+
+        for i in range(10, 1000):
+            x.update(os.urandom(i))
+        x.reset()
+
+        self.assertEqual(h, x.intdigest())
+
+        for i in range(10, 1000):
+            x.update(os.urandom(100))
+        x.reset()
+
         self.assertEqual(h, x.intdigest())
 
     def test_xxh3_128_copy(self):
@@ -108,20 +155,6 @@ class TestXXH(unittest.TestCase):
         self.assertEqual(a.hexdigest(), xxhash.xxh3_128_hexdigest(s, seed=2**65-1))
         self.assertEqual(a.hexdigest(), xxhash.xxh3_128_hexdigest(s, seed=2**66-1))
 
-        def test_xxh3_128_reset_more(self):
-            x = xxhash.xxh3_128()
-            h = x.intdigest()
-
-            for i in range(random.randint(100, 200)):
-                x.reset()
-
-            self.assertEqual(h, x.intdigest())
-
-            for i in range(random.randint(100, 200)):
-                x.update(os.urandom(100))
-            x.reset()
-
-            self.assertEqual(h, x.intdigest())
 
 
 if __name__ == '__main__':
